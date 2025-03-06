@@ -1,6 +1,6 @@
 # MCP Rust Documentation Server
 
-This is a Model Context Protocol (MCP) server that fetches and returns documentation for Rust crates from docs.rs.
+This is a Model Context Protocol (MCP) server that fetches and returns documentation for Rust crates providing essential context for LLM's when working with Rust code.
 
 ## Features
 
