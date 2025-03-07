@@ -11,3 +11,7 @@ services:
         tty: true
         environment:
             - NODE_ENV=production
+            - PORT=27182
+        ports:
+            - "27182:27182"
+        command: ["npm", "run", "start:sse"]

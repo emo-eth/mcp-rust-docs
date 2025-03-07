@@ -17,6 +17,10 @@ RUN npm run build
 
 # Set environment variables
 ENV NODE_ENV=production
+ENV PORT=27182
 
-# Run the server
-CMD ["npm", "start"] 
+# Expose the port
+EXPOSE 27182
+
+# Run the SSE server by default
+CMD ["npm", "run", "start:sse"] 

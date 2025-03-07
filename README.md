@@ -10,6 +10,8 @@ This is a Model Context Protocol (MCP) server that fetches and returns documenta
 -   Uses the latest MCP SDK (v1.6.1)
 -   Written in TypeScript for better type safety and developer experience
 -   Dockerized for easy deployment
+-   Supports both stdio and SSE (Server-Sent Events) transports
+-   Configurable port for SSE server
 
 ## Installation
 
@@ -35,14 +37,19 @@ npm install
 # Build the TypeScript code
 npm run build
 
-# Start the server
+# Start the server with stdio transport (default)
 npm start
+
+# Or start the server with SSE transport
+npm run start:sse
 
 # Or build and start in one command
 npm run dev
 ```
 
 ### Running with Docker
+
+The Docker setup is configured to run the SSE server on port 27182 by default.
 
 ```bash
 # Build and start the Docker container
@@ -62,8 +69,30 @@ Alternatively, you can build and run the Docker container directly:
 docker build -t mcp-rust-docs .
 
 # Run the container
-docker run -it --name mcp-rust-docs mcp-rust-docs
+docker run -it -p 27182:27182 --name mcp-rust-docs mcp-rust-docs
 ```
+
+The server will be available at:
+
+-   SSE endpoint: `http://localhost:27182/sse`
+-   Message endpoint: `http://localhost:27182/message`
+
+### Using with Docker
+
+When using Docker, you'll need to adjust your Claude Desktop configuration:
+
+```json
+{
+    "mcpServers": {
+        "rust-docs": {
+            "command": "docker",
+            "args": ["exec", "-i", "mcp-rust-docs", "npm", "run", "start:sse"]
+        }
+    }
+}
+```
+
+Make sure the container is running before starting Claude Desktop.
 
 ## Integrating with AI Assistants
 
@@ -93,13 +122,56 @@ When using Docker, you'll need to adjust your Claude Desktop configuration:
     "mcpServers": {
         "rust-docs": {
             "command": "docker",
-            "args": ["exec", "-i", "mcp-rust-docs", "npm", "start"]
+            "args": ["exec", "-i", "mcp-rust-docs", "npm", "run", "start:sse"]
         }
     }
 }
 ```
 
 Make sure the container is running before starting Claude Desktop.
+
+### Using the SSE Transport
+
+The server also supports Server-Sent Events (SSE) for web-based integrations:
+
+1. Start the server with SSE transport:
+
+    ```bash
+    # Start on default port (3001)
+    npm run start:sse
+
+    # Start on a specific port
+    npm run start:sse -- --port 3002
+    # or use the short form
+    npm run start:sse -- -p 3002
+
+    # Get help on available options
+    npm run start:sse -- --help
+    ```
+
+2. The server will be available at:
+
+    - SSE endpoint: `http://localhost:<port>/sse`
+    - Message endpoint: `http://localhost:<port>/message`
+
+    Replace `<port>` with the port number you specified (defaults to 3001).
+
+3. Connect to the SSE endpoint from your client application and send messages to the message endpoint.
+
+You can run multiple instances of the server on different ports to handle multiple connections:
+
+```bash
+# Run three instances on different ports
+npm run start:sse -- -p 3001 &
+npm run start:sse -- -p 3002 &
+npm run start:sse -- -p 3003 &
+```
+
+The port can also be configured using the `PORT` environment variable:
+
+```bash
+PORT=3004 npm run start:sse
+```
 
 ## Example Usage
 
@@ -141,6 +213,7 @@ This server uses the MCP SDK with carefully structured import paths. If you're m
 3. The tool definition uses Zod for parameter validation
 4. Console output is redirected to stderr to avoid breaking the MCP protocol
 5. The tool returns properly formatted MCP response objects
+6. The SSE implementation uses Express.js to provide HTTP endpoints
 
 ## Contributing
 

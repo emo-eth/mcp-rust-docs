@@ -73,6 +73,9 @@ const lookupCrateDocsParams = {
         .describe("Name of the Rust crate to lookup documentation for"),
 };
 
+// Add timeout configuration for axios
+const AXIOS_TIMEOUT = 5000; // 5 seconds
+
 // Define tool with proper Zod schema for parameters
 server.tool(
     "lookup_crate_docs",
@@ -94,8 +97,11 @@ server.tool(
             const url = `https://docs.rs/${crateName}/latest/${crateName}/index.html`;
             console.error(`Making request to: ${url}`);
 
-            // Fetch the HTML content
-            const response = await axios.get(url);
+            // Add timeout to axios request
+            const response = await axios.get(url, {
+                timeout: AXIOS_TIMEOUT,
+                maxContentLength: 10 * 1024 * 1024, // 10MB limit
+            });
             console.error(`Received response with status: ${response.status}`);
 
             // Convert HTML to text
@@ -120,6 +126,19 @@ server.tool(
                 content: [{ type: "text", text: truncatedText }],
             };
         } catch (error) {
+            if (axios.isAxiosError(error) && error.code === "ECONNABORTED") {
+                return {
+                    content: [
+                        {
+                            type: "text",
+                            text: `Error: Request timed out after ${
+                                AXIOS_TIMEOUT / 1000
+                            } seconds. The documentation may be too large or docs.rs may be unresponsive.`,
+                        },
+                    ],
+                    isError: true,
+                };
+            }
             const errorMessage =
                 error instanceof Error ? error.message : String(error);
             console.error(`Error fetching documentation:`, errorMessage);
