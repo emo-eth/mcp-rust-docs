@@ -2,10 +2,11 @@
   "name": "mcp-rust-docs",
   "version": "1.0.0",
   "description": "MCP server for fetching Rust crate documentation",
-  "main": "index.js",
+  "main": "dist/index.js",
   "scripts": {
-    "start": "node index.js",
-    "build-ts": "tsc"
+    "start": "node dist/index.js",
+    "build": "tsc",
+    "dev": "tsc && node dist/index.js"
   },
   "keywords": [],
   "author": "",
@@ -14,5 +15,10 @@
     "@modelcontextprotocol/sdk": "^1.6.1",
     "axios": "^1.6.0",
     "html-to-text": "^9.0.5"
+  },
+  "devDependencies": {
+    "@types/html-to-text": "^9.0.4",
+    "@types/node": "^20.11.30",
+    "typescript": "^5.4.2"
   }
 }

@@ -4,10 +4,11 @@ This is a Model Context Protocol (MCP) server that fetches and returns documenta
 
 ## Features
 
-- Fetches documentation for any Rust crate available on docs.rs
-- Strips HTML and formats the content for readability
-- Limits response size to prevent overwhelming the client
-- Uses the latest MCP SDK (v1.6.1)
+-   Fetches documentation for any Rust crate available on docs.rs
+-   Strips HTML and formats the content for readability
+-   Limits response size to prevent overwhelming the client
+-   Uses the latest MCP SDK (v1.6.1)
+-   Written in TypeScript for better type safety and developer experience
 
 ## Installation
 
@@ -22,14 +23,20 @@ npm install
 
 ### Prerequisites
 
-- Node.js 
-- npm 
+-   Node.js
+-   npm
 
 ## Usage
 
 ```bash
-# Start the server directly
+# Build the TypeScript code
+npm run build
+
+# Start the server
 npm start
+
+# Or build and start in one command
+npm run dev
 ```
 
 ## Integrating with AI Assistants
@@ -40,12 +47,12 @@ Add the following to your Claude Desktop configuration file (`claude_desktop_con
 
 ```json
 {
-  "mcpServers": {
-    "rust-docs": {
-      "command": "node",
-      "args": ["/absolute/path/to/index.js"]
+    "mcpServers": {
+        "rust-docs": {
+            "command": "node",
+            "args": ["/absolute/path/to/index.js"]
+        }
     }
-  }
 }
 ```
 
@@ -55,10 +62,10 @@ Replace `/absolute/path/to/index.js` with the absolute path to the index.js file
 
 Once the server is running and configured with your AI assistant, you can ask questions like:
 
-- "Look up the documentation for the 'tokio' crate"
-- "What features does the 'serde' crate provide?"
-- "Show me the documentation for 'ratatui'"
-- "Can you explain the main modules in the 'axum' crate?"
+-   "Look up the documentation for the 'tokio' crate"
+-   "What features does the 'serde' crate provide?"
+-   "Show me the documentation for 'ratatui'"
+-   "Can you explain the main modules in the 'axum' crate?"
 
 The AI will use the `lookup_crate_docs` tool to fetch and display the relevant documentation.
 
