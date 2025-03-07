@@ -17,7 +17,7 @@ This is a Model Context Protocol (MCP) server that fetches and returns documenta
 
 ```bash
 # Clone the repository
-git https://github.com/0xKoda/mcp-rust-docs.git
+git clone https://github.com/emo-eth/mcp-rust-docs.git
 cd mcp-rust-docs
 
 # Install dependencies
@@ -40,7 +40,7 @@ npm run build
 # Start the server with stdio transport (default)
 npm start
 
-# Or start the server with SSE transport
+# Or start the server with SSE transport (default port 3001)
 npm run start:sse
 
 # Or build and start in one command
@@ -49,7 +49,7 @@ npm run dev
 
 ### Running with Docker
 
-The Docker setup is configured to run the SSE server on port 27182 by default.
+The Docker setup is configured to run the SSE server on port 27182 by default, unlike the local SSE server which defaults to port 3001.
 
 ```bash
 # Build and start the Docker container

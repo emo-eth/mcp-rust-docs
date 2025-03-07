@@ -1,5 +1,5 @@
-import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio.js";
-import { createServer } from "./rust-docs.js";
+import { StdioServerTransport } from "@modelcontextprotocol/sdk/server/stdio";
+import { createServer } from "./rust-docs";
 
 const { server } = createServer();
 
