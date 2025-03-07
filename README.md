@@ -9,6 +9,7 @@ This is a Model Context Protocol (MCP) server that fetches and returns documenta
 -   Limits response size to prevent overwhelming the client
 -   Uses the latest MCP SDK (v1.6.1)
 -   Written in TypeScript for better type safety and developer experience
+-   Dockerized for easy deployment
 
 ## Installation
 
@@ -28,6 +29,8 @@ npm install
 
 ## Usage
 
+### Running Locally
+
 ```bash
 # Build the TypeScript code
 npm run build
@@ -37,6 +40,29 @@ npm start
 
 # Or build and start in one command
 npm run dev
+```
+
+### Running with Docker
+
+```bash
+# Build and start the Docker container
+docker-compose up -d
+
+# View logs
+docker-compose logs -f
+
+# Stop the container
+docker-compose down
+```
+
+Alternatively, you can build and run the Docker container directly:
+
+```bash
+# Build the Docker image
+docker build -t mcp-rust-docs .
+
+# Run the container
+docker run -it --name mcp-rust-docs mcp-rust-docs
 ```
 
 ## Integrating with AI Assistants
@@ -57,6 +83,23 @@ Add the following to your Claude Desktop configuration file (`claude_desktop_con
 ```
 
 Replace `/absolute/path/to/index.js` with the absolute path to the index.js file in this repository.
+
+### Using with Docker
+
+When using Docker, you'll need to adjust your Claude Desktop configuration:
+
+```json
+{
+    "mcpServers": {
+        "rust-docs": {
+            "command": "docker",
+            "args": ["exec", "-i", "mcp-rust-docs", "npm", "start"]
+        }
+    }
+}
+```
+
+Make sure the container is running before starting Claude Desktop.
 
 ## Example Usage
 
