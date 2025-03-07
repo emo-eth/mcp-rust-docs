@@ -2,11 +2,11 @@
   "name": "mcp-rust-docs",
   "version": "1.0.0",
   "description": "MCP server for fetching Rust crate documentation",
-  "main": "dist/index.js",
+  "main": "dist/stdio.js",
   "scripts": {
-    "start": "node dist/index.js",
+    "start": "node dist/stdio.js",
     "build": "tsc",
-    "dev": "tsc && node dist/index.js",
+    "dev": "tsc && node dist/stdio.js",
     "start:sse": "node dist/sse.js"
   },
   "keywords": [],
