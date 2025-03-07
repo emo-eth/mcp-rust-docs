@@ -105,13 +105,13 @@ Add the following to your Claude Desktop configuration file (`claude_desktop_con
     "mcpServers": {
         "rust-docs": {
             "command": "node",
-            "args": ["/absolute/path/to/index.js"]
+            "args": ["/absolute/path/to/dist/stdio.js"]
         }
     }
 }
 ```
 
-Replace `/absolute/path/to/index.js` with the absolute path to the index.js file in this repository.
+Replace `/absolute/path/to/dist/stdio.js` with the absolute path to the dist/stdio.js file in this repository.
 
 ### Using with Docker
 
