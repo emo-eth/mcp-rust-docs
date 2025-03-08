@@ -2,7 +2,7 @@
   "name": "mcp-rust-docs",
   "version": "1.0.0",
   "description": "MCP server for fetching Rust crate documentation",
-  "main": "dist/stdio.js",
+  "main": "src/index.ts",
   "scripts": {
     "start": "node dist/stdio.js",
     "build": "tsc",

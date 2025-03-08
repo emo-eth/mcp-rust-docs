@@ -67,6 +67,7 @@ export function createServer() {
 
     console.error("[Server] Registering lookup_crate_docs tool");
     // Define tool with proper Zod schema for parameters
+
     server.tool(
         "lookup_crate_docs",
         "Lookup documentation for a Rust crate from docs.rs",
