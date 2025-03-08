@@ -1,6 +1,6 @@
-import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse";
+import { SSEServerTransport } from "@modelcontextprotocol/sdk/server/sse.js";
 import express from "express";
-import { createServer } from "./rust-docs";
+import { createServer } from "./rust-docs.js";
 
 const app = express();
 

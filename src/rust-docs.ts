@@ -1,6 +1,6 @@
 import axios from "axios";
 import { convert as htmlToText } from "html-to-text";
-import { McpServer } from "@modelcontextprotocol/sdk/server/mcp";
+import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import { z } from "zod";
 
 // Define a simple RequestHandlerExtra interface since we can't import it

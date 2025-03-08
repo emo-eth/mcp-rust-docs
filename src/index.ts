@@ -1,3 +1,3 @@
-import { createServer } from "./rust-docs";
+import { createServer } from "./rust-docs.js";
 
 export default createServer;
